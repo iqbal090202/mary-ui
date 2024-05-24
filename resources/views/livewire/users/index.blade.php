@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Traits\ClearsFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Volt\Component;
@@ -8,21 +9,13 @@ use Livewire\WithPagination;
 use Mary\Traits\Toast;
 
 new class extends Component {
-    use Toast, WithPagination;
+    use ClearsFilters, Toast, WithPagination;
 
     public string $search = '';
 
     public bool $drawer = false;
 
     public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
-
-    // Clear filters
-    public function clear(): void
-    {
-        $this->reset();
-        $this->resetPage();
-        $this->success('Filters cleared.', position: 'toast-bottom');
-    }
 
     // Delete action
     public function delete($id): void
@@ -39,14 +32,6 @@ new class extends Component {
             ['key' => 'country_name', 'label' => 'Country'],
             ['key' => 'email', 'label' => 'E-mail', 'sortable' => false],
         ];
-    }
-
-    // Reset pagination when any component property changes
-    public function updated($property): void
-    {
-        if (! is_array($property) && $property != "") {
-            $this->resetPage();
-        }
     }
 
     public function users(): LengthAwarePaginator
