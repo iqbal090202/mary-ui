@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use App\Models\User;
 use App\Traits\ClearsFilters;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,6 +17,8 @@ new class extends Component {
     public bool $drawer = false;
 
     public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
+
+    public int $country_id = 0;
 
     // Delete action
     public function delete(User $user): void
@@ -40,6 +43,7 @@ new class extends Component {
         return User::query()
             ->withAggregate('country', 'name')
             ->when($this->search, fn(Builder $q) => $q->where('name', 'like', "%$this->search%"))
+            ->when($this->country_id, fn(Builder $q) => $q->where('country_id', $this->country_id))
             ->orderBy(...array_values($this->sortBy))
             ->paginate(5);
     }
@@ -48,7 +52,8 @@ new class extends Component {
     {
         return [
             'users' => $this->users(),
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
+            'countries' => Country::all(),
         ];
     }
 }; ?>
@@ -76,8 +81,11 @@ new class extends Component {
 
     <!-- FILTER DRAWER -->
     <x-drawer wire:model="drawer" title="Filters" right separator with-close-button class="lg:w-1/3">
-        <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
+        <div class="grid gap-5">
+            <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
                  @keydown.enter="$wire.drawer = false"/>
+            <x-select placeholder="Country" wire:model.live="country_id" :options="$countries" icon="o-flag" placeholder-value="0" />
+        </div>
 
         <x-slot:actions>
             <x-button label="Reset" icon="o-x-mark" wire:click="clear" spinner/>
