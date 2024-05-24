@@ -34,7 +34,7 @@ new class extends Component {
         return [
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
             ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'age', 'label' => 'Age', 'class' => 'w-20'],
+            ['key' => 'country_name', 'label' => 'Country'],
             ['key' => 'email', 'label' => 'E-mail', 'sortable' => false],
         ];
     }
@@ -42,6 +42,7 @@ new class extends Component {
     public function users(): Collection
     {
         return User::query()
+            ->withAggregate('country', 'name')
             ->with(['country'])
             ->when($this->search, fn(Builder $q) => $q->where('name', 'like', "%$this->search%"))
             ->orderBy(...array_values($this->sortBy))
