@@ -2,12 +2,13 @@
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Volt\Component;
+use Livewire\WithPagination;
 use Mary\Traits\Toast;
 
 new class extends Component {
-    use Toast;
+    use Toast, WithPagination;
 
     public string $search = '';
 
@@ -39,14 +40,13 @@ new class extends Component {
         ];
     }
 
-    public function users(): Collection
+    public function users(): LengthAwarePaginator
     {
         return User::query()
             ->withAggregate('country', 'name')
-            ->with(['country'])
             ->when($this->search, fn(Builder $q) => $q->where('name', 'like', "%$this->search%"))
             ->orderBy(...array_values($this->sortBy))
-            ->get();
+            ->paginate(5);
     }
 
     public function with(): array
@@ -71,7 +71,7 @@ new class extends Component {
 
     <!-- TABLE  -->
     <x-card>
-        <x-table :headers="$headers" :rows="$users" :sort-by="$sortBy">
+        <x-table :headers="$headers" :rows="$users" :sort-by="$sortBy" with-pagination>
             @scope('actions', $user)
             <x-button icon="o-trash" wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner
                       class="btn-ghost btn-sm text-red-500"/>

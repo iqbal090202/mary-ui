@@ -8,7 +8,10 @@ export default {
         "./app/Livewire/**/**/*.php",
 
         // Add mary
-        "./vendor/robsontenorio/mary/src/View/Components/**/*.php"
+        "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
+
+        // Add pagination
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     ],
     theme: {
         extend: {},
