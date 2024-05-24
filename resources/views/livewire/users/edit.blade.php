@@ -1,8 +1,8 @@
 <?php
 
+use App\Livewire\Forms\UserForm;
 use App\Models\Country;
 use App\Models\User;
-use Livewire\Attributes\Rule;
 use Livewire\Volt\Component;
 use Mary\Traits\Toast;
 
@@ -11,29 +11,17 @@ new class extends Component {
 
     public User $user;
 
-    // You could use Livewire "form object" instead.
-    #[Rule('required')]
-    public string $name = '';
+    public UserForm $form;
 
-    #[Rule('required|email')]
-    public string $email = '';
-
-    // Optional
-    #[Rule('sometimes')]
-    public ?int $country_id = null;
-
-    public function mount(): void
+    public function mount(User $user): void
     {
-        $this->fill($this->user);
+        $this->form->setUser($user);
     }
 
     public function save(): void
     {
-        // Validate
-        $data = $this->validate();
-
         // Update
-        $this->user->update($data);
+        $this->form->update();
 
         // You can toast and redirect to any route
         $this->success('User updated with success.', redirectTo: '/users');
@@ -52,9 +40,9 @@ new class extends Component {
     <x-header title="Update {{ $user->name }}" separator/>
 
     <x-form wire:submit="save">
-        <x-input label="Name" wire:model="name"/>
-        <x-input label="Email" wire:model="email"/>
-        <x-select label="Country" wire:model="country_id" :options="$countries" placeholder="---"/>
+        <x-input label="Name" wire:model="form.name"/>
+        <x-input label="Email" wire:model="form.email"/>
+        <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>
 
         <x-slot:actions>
             <x-button label="Cancel" link="/users"/>
