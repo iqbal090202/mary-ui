@@ -27,6 +27,22 @@ new class extends Component {
         $this->warning("$user->name deleted", 'Good bye!', position: 'toast-bottom');
     }
 
+    // Filter count
+    public function filters()
+    {
+        $count = 0;
+
+        if (!empty($this->search)) {
+            $count++;
+        }
+
+        if ($this->country_id > 0) {
+            $count++;
+        }
+
+        return $count;
+    }
+
     // Table headers
     public function headers(): array
     {
@@ -54,6 +70,7 @@ new class extends Component {
             'users' => $this->users(),
             'headers' => $this->headers(),
             'countries' => Country::all(),
+            'filters' => $this->filters(),
         ];
     }
 }; ?>
@@ -65,7 +82,7 @@ new class extends Component {
             <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass"/>
         </x-slot:middle>
         <x-slot:actions>
-            <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel"/>
+            <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel" :badge="$filters"/>
         </x-slot:actions>
     </x-header>
 
