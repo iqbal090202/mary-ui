@@ -38,20 +38,28 @@ new class extends Component {
 <div>
     <x-header title="Update {{ $form->user->name }}" separator/>
 
-    <x-form wire:submit="save">
-        <x-file label="Avatar" wire:model="form.photo" accept="image/png, image/jpeg" crop-after-change>
-            <img src="{{ $form->user->avatar ?? '/empty-user.jpg' }}" class="h-40 rounded-lg"/>
-        </x-file>
+    <div class="grid gap-5 lg:grid-cols-2">
+        <div>
+            <x-form wire:submit="save">
+                <x-file label="Avatar" wire:model="form.photo" accept="image/png, image/jpeg" crop-after-change>
+                    <img src="{{ $form->user->avatar ?? '/empty-user.jpg' }}" class="h-40 rounded-lg"/>
+                </x-file>
 
-        <x-input label="Name" wire:model="form.name"/>
-        <x-input label="Email" wire:model="form.email"/>
-        <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>
+                <x-input label="Name" wire:model="form.name"/>
+                <x-input label="Email" wire:model="form.email"/>
+                <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>
 
-        <x-slot:actions>
-            <x-button label="Cancel" link="/users"/>
-            {{-- The important thing here is `type="submit"` --}}
-            {{-- The spinner property is nice! --}}
-            <x-button label="Save" icon="o-paper-airplane" spinner="save" type="submit" class="btn-primary"/>
-        </x-slot:actions>
-    </x-form>
+                <x-slot:actions>
+                    <x-button label="Cancel" link="/users"/>
+                    {{-- The important thing here is `type="submit"` --}}
+                    {{-- The spinner property is nice! --}}
+                    <x-button label="Save" icon="o-paper-airplane" spinner="save" type="submit" class="btn-primary"/>
+                </x-slot:actions>
+            </x-form>
+        </div>
+        <div>
+            {{-- Get a nice picture from `StorySet` web site --}}
+            <img src="/edit-form.png" width="300" class="mx-auto" />
+        </div>
+    </div>
 </div>
