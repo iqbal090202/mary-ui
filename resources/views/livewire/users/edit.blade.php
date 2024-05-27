@@ -4,12 +4,11 @@ use App\Livewire\Forms\UserForm;
 use App\Models\Country;
 use App\Models\User;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
 new class extends Component {
-    use Toast;
-
-    public User $user;
+    use Toast, WithFileUploads;
 
     public UserForm $form;
 
@@ -37,9 +36,13 @@ new class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Update {{ $user->name }}" separator/>
+    <x-header title="Update {{ $form->user->name }}" separator/>
 
     <x-form wire:submit="save">
+        <x-file label="Avatar" wire:model="form.photo" accept="image/png, image/jpeg" crop-after-change>
+            <img src="{{ $form->user->avatar ?? '/empty-user.jpg' }}" class="h-40 rounded-lg"/>
+        </x-file>
+
         <x-input label="Name" wire:model="form.name"/>
         <x-input label="Email" wire:model="form.email"/>
         <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>

@@ -20,6 +20,9 @@ class UserForm extends Form
     #[Validate('sometimes')]
     public ?int $country_id = null;
 
+    #[Validate('nullable|image|max:1024')]
+    public $photo;
+
     public function mount(): void
     {
         $this->fill($this->user);
@@ -40,5 +43,11 @@ class UserForm extends Form
 
         // Update
         $this->user->update($data);
+
+        // Upload file and save the avatar `url` on User model
+        if ($this->photo) {
+            $url = $this->photo->store('users', 'public');
+            $this->user->update(['avatar' => "/storage/$url"]);
+        }
     }
 }
