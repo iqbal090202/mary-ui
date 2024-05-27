@@ -41,6 +41,24 @@ class UserForm extends Form
         $this->my_languages = $user->languages->pluck('id')->all();
     }
 
+    public function store(): void
+    {
+        // Validate
+        $this->validate();
+
+        // Create
+        $this->user = User::create($this->all());
+
+        // Upload file and save the avatar `url` on User model
+        if ($this->photo) {
+            $url = $this->photo->store('users', 'public');
+            $this->user->update(['avatar' => "/storage/$url"]);
+        }
+
+        // Sync selection
+        $this->user->languages()->sync($this->my_languages);
+    }
+
     public function update(): void
     {
         // Validate
