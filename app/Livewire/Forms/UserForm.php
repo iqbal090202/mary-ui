@@ -27,12 +27,15 @@ class UserForm extends Form
     #[Validate('required')]
     public array $my_languages = [];
 
+    // Optional
+    #[Validate('sometimes')]
+    public ?string $bio = null;
+
     public function setUser(User $user): void
     {
         $this->user = $user;
-        $this->name = $user->name;
-        $this->email = $user->email;
-        $this->country_id = $user->country_id;
+
+        $this->fill($this->user);
 
         // Fill the selected languages property
         $this->my_languages = $user->languages->pluck('id')->all();
