@@ -40,9 +40,13 @@ new class extends Component {
 <div>
     <x-header title="Update {{ $form->user->name }}" separator/>
 
-    <div class="grid gap-5 lg:grid-cols-2">
-        <div>
-            <x-form wire:submit="save">
+    <x-form wire:submit="save">
+        {{--  Basic section  --}}
+        <div class="lg:grid grid-cols-5">
+            <div class="col-span-2">
+                <x-header title="Basic" subtitle="Basic info from user" size="text-2xl" />
+            </div>
+            <div class="col-span-3 grid gap-3">
                 <x-file label="Avatar" wire:model="form.photo" accept="image/png, image/jpeg" crop-after-change>
                     <img src="{{ $form->user->avatar ?? '/empty-user.jpg' }}" class="h-40 rounded-lg"/>
                 </x-file>
@@ -50,7 +54,17 @@ new class extends Component {
                 <x-input label="Name" wire:model="form.name"/>
                 <x-input label="Email" wire:model="form.email"/>
                 <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>
+            </div>
+        </div>
 
+        {{--  Details section --}}
+        <hr class="my-5" />
+
+        <div class="lg:grid grid-cols-5">
+            <div class="col-span-2">
+                <x-header title="Details" subtitle="More about the user" size="text-2xl" />
+            </div>
+            <div class="col-span-3 grid gap-3">
                 {{-- Multi selection --}}
                 <x-choices-offline
                     label="My languages"
@@ -59,18 +73,14 @@ new class extends Component {
                     searchable />
 
                 <x-editor wire:model="form.bio" label="Bio" hint="The great biography" />
+            </div>
+        </div>
 
-                <x-slot:actions>
-                    <x-button label="Cancel" link="/users"/>
-                    {{-- The important thing here is `type="submit"` --}}
-                    {{-- The spinner property is nice! --}}
-                    <x-button label="Save" icon="o-paper-airplane" spinner="save" type="submit" class="btn-primary"/>
-                </x-slot:actions>
-            </x-form>
-        </div>
-        <div>
-            {{-- Get a nice picture from `StorySet` web site --}}
-            <img src="/edit-form.png" width="300" class="mx-auto"/>
-        </div>
-    </div>
+        <x-slot:actions>
+            <x-button label="Cancel" link="/users"/>
+            {{-- The important thing here is `type="submit"` --}}
+            {{-- The spinner property is nice! --}}
+            <x-button label="Save" icon="o-paper-airplane" spinner="save" type="submit" class="btn-primary"/>
+        </x-slot:actions>
+    </x-form>
 </div>
