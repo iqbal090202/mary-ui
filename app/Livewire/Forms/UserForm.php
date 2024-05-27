@@ -23,10 +23,9 @@ class UserForm extends Form
     #[Validate('nullable|image|max:1024')]
     public $photo;
 
-    public function mount(): void
-    {
-        $this->fill($this->user);
-    }
+    // Selected languages
+    #[Validate('required')]
+    public array $my_languages = [];
 
     public function setUser(User $user): void
     {
@@ -34,6 +33,9 @@ class UserForm extends Form
         $this->name = $user->name;
         $this->email = $user->email;
         $this->country_id = $user->country_id;
+
+        // Fill the selected languages property
+        $this->my_languages = $user->languages->pluck('id')->all();
     }
 
     public function update(): void
@@ -49,5 +51,8 @@ class UserForm extends Form
             $url = $this->photo->store('users', 'public');
             $this->user->update(['avatar' => "/storage/$url"]);
         }
+
+        // Sync selection
+        $this->user->languages()->sync($this->my_languages);
     }
 }

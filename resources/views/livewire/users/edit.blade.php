@@ -2,6 +2,7 @@
 
 use App\Livewire\Forms\UserForm;
 use App\Models\Country;
+use App\Models\Language;
 use App\Models\User;
 use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
@@ -30,7 +31,8 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'countries' => Country::all()
+            'countries' => Country::all(),
+            'languages' => Language::all(), // Available Languages
         ];
     }
 }; ?>
@@ -49,6 +51,13 @@ new class extends Component {
                 <x-input label="Email" wire:model="form.email"/>
                 <x-select label="Country" wire:model="form.country_id" :options="$countries" placeholder="---"/>
 
+                {{-- Multi selection --}}
+                <x-choices-offline
+                    label="My languages"
+                    wire:model="form.my_languages"
+                    :options="$languages"
+                    searchable />
+
                 <x-slot:actions>
                     <x-button label="Cancel" link="/users"/>
                     {{-- The important thing here is `type="submit"` --}}
@@ -59,7 +68,7 @@ new class extends Component {
         </div>
         <div>
             {{-- Get a nice picture from `StorySet` web site --}}
-            <img src="/edit-form.png" width="300" class="mx-auto" />
+            <img src="/edit-form.png" width="300" class="mx-auto"/>
         </div>
     </div>
 </div>
