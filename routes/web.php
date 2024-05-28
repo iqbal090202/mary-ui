@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+Volt::route('/register', 'register');
+
 // Users will be redirected to this route if not logged in
 Volt::route('/login', 'login')->name('login');
 
