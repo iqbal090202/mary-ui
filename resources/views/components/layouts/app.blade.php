@@ -14,6 +14,9 @@
 
     {{-- TinyMCE --}}
     <script src="https://cdn.tiny.cloud/1/krjh2s8vdjzsh3irql7r7w3jiqirc27gy4agmmvim8r7a69a/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    {{-- Currency --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@0.44.2/libs/currency/currency.js"></script>
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
 
@@ -23,7 +26,7 @@
             <x-app-brand />
         </x-slot:brand>
         <x-slot:actions>
-            <label for="main-drawer" class="lg:hidden mr-3">
+            <label for="main-drawer" class="mr-3 lg:hidden">
                 <x-icon name="o-bars-3" class="cursor-pointer" />
             </label>
         </x-slot:actions>
@@ -55,6 +58,7 @@
 
                 <x-menu-item title="Home" icon="o-sparkles" link="/" />
                 <x-menu-item title="Users" icon="o-users" link="/users" />
+                <x-menu-item title="Products" icon="o-cube" link="/products" />
                 <x-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-menu-item title="Wifi" icon="o-wifi" link="####" />
                     <x-menu-item title="Archives" icon="o-archive-box" link="####" />

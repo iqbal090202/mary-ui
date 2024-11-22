@@ -19,6 +19,9 @@ class CountrySeeder extends Seeder
 
         Country::insert([
             [
+                'name' => 'Indonesia'
+            ],
+            [
                 'name' => 'Brazil'
             ],
             [

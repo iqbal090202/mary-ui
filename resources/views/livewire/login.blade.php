@@ -38,7 +38,7 @@ class extends Component {
     }
 }; ?>
 
-<div class="md:w-96 mx-auto mt-20">
+<div class="mx-auto mt-20 md:w-96">
     <div class="mb-10">Cool image here</div>
 
     <x-form wire:submit="login">

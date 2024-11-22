@@ -23,5 +23,9 @@ Route::middleware('auth')->group(function () {
     Volt::route('/users', 'users.index');
     Volt::route('/users/create', 'users.create');
     Volt::route('/users/{user}/edit', 'users.edit');
+
+    Volt::route('/products', 'products.index');
+    Volt::route('/products/create', 'products.create');
+    Volt::route('/products/{product}/edit', 'products.edit');
     // ... more
 });

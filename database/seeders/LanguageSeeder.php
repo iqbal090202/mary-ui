@@ -15,6 +15,7 @@ class LanguageSeeder extends Seeder
         }
 
         Language::insert([
+            ['name' => 'Indonesian'],
             ['name' => 'English'],
             ['name' => 'French'],
             ['name' => 'Portuguese'],

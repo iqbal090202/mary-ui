@@ -62,7 +62,7 @@ new class extends Component {
             ->when($this->search, fn(Builder $q) => $q->where('name', 'like', "%$this->search%"))
             ->when($this->country_id, fn(Builder $q) => $q->where('country_id', $this->country_id))
             ->orderBy(...array_values($this->sortBy))
-            ->paginate(5);
+            ->paginate(10);
     }
 
     public function with(): array
@@ -96,7 +96,7 @@ new class extends Component {
             @endscope
             @scope('actions', $user)
             <x-button icon="o-trash" wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner
-                      class="btn-ghost btn-sm text-red-500"/>
+                      class="text-red-500 btn-ghost btn-sm"/>
             @endscope
         </x-table>
     </x-card>
