@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CountrySeeder::class);
         $this->call(LanguageSeeder::class);
-        User::factory(50)->create();
+        $this->call(RoleSeeder::class);
+        User::factory(20)->create()->each(function ($user) {
+            $user->assignRole('admin');
+        });;
         Product::factory(10)->create();
         ProductVariant::factory(20)->create();
     }

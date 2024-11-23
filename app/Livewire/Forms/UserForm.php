@@ -11,69 +11,53 @@ class UserForm extends Form
     public ?User $user;
 
     #[Validate('required')]
-    public string $name = '';
+    public string $user_name = '';
 
     #[Validate('required|email')]
     public string $email = '';
 
-    // Optional
-    #[Validate('sometimes')]
-    public ?int $country_id = null;
-
-    #[Validate('nullable|image|max:1024')]
+    #[Validate('nullable|image|max:2024')]
     public $photo;
 
-    // Selected languages
-    #[Validate('required')]
-    public array $my_languages = [];
+    public string $password = '';
 
-    // Optional
-    #[Validate('sometimes')]
-    public ?string $bio = null;
+    public string $password_confirmation = '';
 
     public function setUser(User $user): void
     {
         $this->user = $user;
 
         $this->fill($this->user);
-
-        // Fill the selected languages property
-        $this->my_languages = $user->languages->pluck('id')->all();
     }
 
     public function store(): void
     {
-        // Validate
-        $this->validate();
+        $rules = [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
+        ];
 
-        // Create
-        $this->user = User::create($this->all());
+        $validatedData = $this->validate([...$this->getRules(), ...$rules]);
 
-        // Upload file and save the avatar `url` on User model
+        $this->user = User::create($validatedData);
+        $this->user->assignRole('admin');
+
         if ($this->photo) {
             $url = $this->photo->store('users', 'public');
-            $this->user->update(['avatar' => "/storage/$url"]);
+            $this->user->update(['profile_picture' => "/storage/$url"]);
         }
-
-        // Sync selection
-        $this->user->languages()->sync($this->my_languages);
     }
 
     public function update(): void
     {
-        // Validate
         $data = $this->validate();
 
-        // Update
         $this->user->update($data);
 
-        // Upload file and save the avatar `url` on User model
         if ($this->photo) {
             $url = $this->photo->store('users', 'public');
-            $this->user->update(['avatar' => "/storage/$url"]);
+            $this->user->update(['profile_picture' => "/storage/$url"]);
         }
-
-        // Sync selection
-        $this->user->languages()->sync($this->my_languages);
     }
 }
