@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(CountrySeeder::class);
-        $this->call(LanguageSeeder::class);
         $this->call(RoleSeeder::class);
         User::factory(20)->create()->each(function ($user) {
             $user->assignRole('admin');
