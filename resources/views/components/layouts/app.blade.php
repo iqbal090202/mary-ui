@@ -12,9 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
 
-    {{-- TinyMCE --}}
-    <script src="https://cdn.tiny.cloud/1/krjh2s8vdjzsh3irql7r7w3jiqirc27gy4agmmvim8r7a69a/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
     {{-- Currency --}}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@0.44.2/libs/currency/currency.js"></script>
 </head>
@@ -57,7 +54,9 @@
                 @endif
 
                 <x-menu-item title="Home" icon="o-sparkles" link="/" />
-                <x-menu-item title="Users" icon="o-users" link="/users" />
+                @role('superadmin')
+                    <x-menu-item title="Users" icon="o-users" link="/users" />
+                @endrole
                 <x-menu-item title="Products" icon="o-cube" link="/products" />
                 <x-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-menu-item title="Wifi" icon="o-wifi" link="####" />

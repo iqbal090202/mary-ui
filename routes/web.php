@@ -18,12 +18,15 @@ Route::get('/logout', function () {
 });
 
 // Protected routes here
-Route::middleware('auth')->group(function () {
-    Volt::route('/', 'index');
+Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Volt::route('/users', 'users.index');
     Volt::route('/users/create', 'users.create');
     Volt::route('/users/{user}/edit', 'users.edit');
+    // ... more
+});
 
+Route::middleware('auth')->group(function () {
+    Volt::route('/', 'index');
     Volt::route('/products', 'products.index');
     Volt::route('/products/create', 'products.create');
     Volt::route('/products/{product}/edit', 'products.edit');

@@ -26,13 +26,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'country_id' => Country::inRandomOrder()->first(),
-            'name' => fake()->name(),
-            'bio' => fake()->paragraph(),
+            'user_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'address' => fake()->paragraph(),
             'remember_token' => Str::random(10),
+            'balance' => fake()->randomFloat(2,1000,100000),
         ];
     }
 
