@@ -15,7 +15,7 @@ new class extends Component {
 
     public bool $drawer = false;
 
-    public array $sortBy = ['column' => 'product_name', 'direction' => 'asc'];
+    public array $sortBy = ['column' => 'updated_at', 'direction' => 'desc'];
 
     // Filter count
     public function filters()

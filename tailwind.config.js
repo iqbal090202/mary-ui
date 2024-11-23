@@ -11,12 +11,15 @@ export default {
         "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
 
         // Add pagination
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
     ],
     theme: {
         extend: {},
     },
 
     // Add daisyUI
-    plugins: [require("daisyui")]
-}
+    plugins: [require("daisyui")],
+    daisyui: {
+        themes: ["light"],
+    },
+};
