@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         });;
         Product::factory(10)->create();
         ProductVariant::factory(20)->create();
+        $this->call(TransactionSeeder::class);
     }
 }
