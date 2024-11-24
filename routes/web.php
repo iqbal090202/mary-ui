@@ -27,8 +27,12 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Volt::route('/', 'index');
+
     Volt::route('/products', 'products.index');
     Volt::route('/products/create', 'products.create');
     Volt::route('/products/{product}/edit', 'products.edit');
-    // ... more
+
+    Volt::route('/transactions', 'transactions.index');
+    Volt::route('/transactions/create', 'transactions.create');
+    Volt::route('/transactions/{transaction}/edit', 'transactions.edit');
 });

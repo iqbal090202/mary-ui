@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Country;
 use App\Models\User;
 use App\Traits\ClearsFilters;
 use Illuminate\Database\Eloquent\Builder;

@@ -58,6 +58,7 @@
                     <x-menu-item title="Users" icon="o-users" link="/users" />
                 @endrole
                 <x-menu-item title="Products" icon="o-cube" link="/products" />
+                <x-menu-item title="Transactions" icon="o-gift" link="/transactions" />
                 <x-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-menu-item title="Wifi" icon="o-wifi" link="####" />
                     <x-menu-item title="Archives" icon="o-archive-box" link="####" />
