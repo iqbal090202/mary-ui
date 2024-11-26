@@ -30,7 +30,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'roles'
+        'roles',
+        'email_verified_at'
     ];
 
     public function country(): BelongsTo

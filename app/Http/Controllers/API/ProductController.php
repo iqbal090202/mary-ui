@@ -10,7 +10,7 @@ class ProductController extends BaseController
     public function index(Request $request)
     {
         $query = Product::query();
-        $limit = $request->query('limit', 3);
+        $limit = $request->query('limit', 10);
         $sortBy = $request->query('sort_by', 'updated_at');
         $direction = $request->query('direction', 'desc');
 

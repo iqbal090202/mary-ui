@@ -33,7 +33,6 @@ class AuthController extends BaseController
                 'user' => $user,
                 'token' => $token,
             ], 'Logged in successfully');
-
         } catch (ValidationException $e) {
             return $this->sendError($e->errors(), 'Validation Error.', 422);
         }
@@ -43,7 +42,7 @@ class AuthController extends BaseController
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Logged out successfully']);
+        return $this->sendResponse([], 'Logged out successfully');
     }
 
 
