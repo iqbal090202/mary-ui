@@ -10,8 +10,7 @@ class ProductController extends BaseController
     public function index(Request $request)
     {
         $query = Product::query();
-        $offset = $request->query('offset', 0);
-        $limit = $request->query('limit', 10);
+        $limit = $request->query('limit', 3);
         $sortBy = $request->query('sort_by', 'updated_at');
         $direction = $request->query('direction', 'desc');
 
@@ -27,32 +26,20 @@ class ProductController extends BaseController
             $query->where('price', '<=', $request->query('price_max'));
         }
 
-        $products = $query->offset($offset)
-            ->limit($limit)
+        $products = $query->with('variants')
             ->orderBy($sortBy, $direction)
-            ->get();
+            ->paginate($limit);
 
         return $this->sendResponse([
-            'data' => $products,
+            'products' => $products->items(),
             'pagination' => [
-                'offset' => $offset,
-                'limit' => $limit,
-                'total' => Product::count(),
+                'current_page' => $products->currentPage(),
+                'next_page_url' => $products->nextPageUrl(),
+                'prev_page_url' => $products->previousPageUrl(),
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
             ],
         ], 'Products retrieved successfully.');
-
-        // $products = $query->paginate(5);
-
-        // return $this->sendResponse([
-        //     'data' => $products->items(),
-        //     'pagination' => [
-        //         'current_page' => $products->currentPage(),
-        //         'next_page_url' => $products->nextPageUrl(),
-        //         'prev_page_url' => $products->previousPageUrl(),
-        //         'total' => $products->total(),
-        //         'per_page' => $products->perPage(),
-        //     ],
-        // ], 'Products retrieved successfully.');
     }
 
     public function show($id)

@@ -60,7 +60,7 @@ class AuthController extends BaseController
             $user = User::create($request->all());
             $user->assignRole('user');
 
-            return $this->sendResponse([$user], 'Registered out successfully');
+            return $this->sendResponse($user, 'Registered out successfully');
         } catch (ValidationException $e) {
             return $this->sendError($e->errors(), 'Validation Error.', 422);
         }

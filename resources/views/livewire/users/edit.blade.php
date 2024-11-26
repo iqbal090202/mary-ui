@@ -27,7 +27,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Update {{ $form->user->name }}" separator/>
+    <x-header title="Update {{ $form->user->user_name }}" separator/>
 
     <x-form wire:submit="save">
         {{--  Basic section  --}}

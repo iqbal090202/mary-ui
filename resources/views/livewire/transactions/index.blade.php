@@ -49,8 +49,10 @@ new class extends Component {
     {
         return [
             ['key' => 'product.product_name', 'label' => 'Product Name', 'class' => 'w-1'],
-            ['key' => 'price', 'label' => 'Price', 'class' => 'w-1'],
+            ['key' => 'variant.variant_name', 'label' => 'Variant Name', 'class' => 'w-1'],
+            ['key' => 'product.price', 'label' => 'Price', 'class' => 'w-1'],
             ['key' => 'qty', 'label' => 'Quantity', 'class' => 'w-1'],
+            ['key' => 'price', 'label' => 'Total Price', 'class' => 'w-1'],
         ];
     }
 
@@ -94,6 +96,9 @@ new class extends Component {
             @endscope
             @scope('expansion', $transaction, $detailheaders)
                 <x-table :headers="$detailheaders" :rows="$transaction->details">
+                    @scope('cell_product.price', $detail)
+                    <div>{{ $detail->variant ? PriceFormatter::format($detail->variant->price) : PriceFormatter::format($detail->product->price) }}</div>
+                    @endscope
                     @scope('cell_price', $detail)
                     <div>{{ PriceFormatter::format($detail->price) }}</div>
                     @endscope
