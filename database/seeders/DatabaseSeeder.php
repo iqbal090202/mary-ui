@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory(20)->create()->each(function ($user) {
             $user->assignRole('admin');
         });;
-        Product::factory(10)->create();
+        Product::factory(25)->create();
         ProductVariant::factory(20)->create();
         $this->call(TransactionSeeder::class);
     }
