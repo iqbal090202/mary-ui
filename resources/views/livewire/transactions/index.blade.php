@@ -90,7 +90,7 @@ new class extends Component {
 
     <!-- TABLE  -->
     <x-card>
-        <x-table :headers="$headers" :rows="$transactions" :sort-by="$sortBy" wire:model="expanded" expandable with-pagination link="transactions/{id}/edit">
+        <x-table :headers="$headers" :rows="$transactions" :sort-by="$sortBy" wire:model="expanded" expandable with-pagination>
             @scope('cell_total_price', $transaction)
             <div>{{ PriceFormatter::format($transaction->total_price) }}</div>
             @endscope

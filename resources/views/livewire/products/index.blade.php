@@ -18,6 +18,13 @@ new class extends Component {
 
     public array $sortBy = ['column' => 'updated_at', 'direction' => 'desc'];
 
+    public function delete(Product $product): void
+    {
+        $product->variants()->delete();
+        $product->delete();
+        $this->warning("$product->product_name deleted", 'Good bye!', position: 'toast-bottom');
+    }
+
     // Filter count
     public function filters()
     {

@@ -58,7 +58,6 @@ class ProductForm extends Form
     public function store(): void
     {
         $this->validate();
-
         $this->product = Product::create($this->all());
 
         if ($this->product_photo) {

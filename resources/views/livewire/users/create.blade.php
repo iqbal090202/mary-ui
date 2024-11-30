@@ -22,7 +22,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <x-header title="Create user" separator/>
+    <x-header title="Create admin" separator/>
 
     <x-form wire:submit="save">
         {{--  Basic section  --}}

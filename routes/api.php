@@ -20,4 +20,5 @@ Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
     Route::post('/transactions/store', [TransactionController::class, 'store']);
 
     Route::get('/user', [UserController::class, 'index']);
+    Route::put('/user/{user}', [UserController::class, 'update']);
 });
