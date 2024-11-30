@@ -42,7 +42,7 @@ new class extends Component {
                 <x-header title="Basic" subtitle="Basic info from product" size="text-2xl" />
             </div>
             <div class="grid col-span-3 gap-3">
-                <x-file label="Photo" wire:model="form.photo" accept="image/png, image/jpeg" crop-after-change>
+                <x-file label="Photo" wire:model="form.product_photo" accept="image/png, image/jpeg" crop-after-change>
                     <img src="/empty-user.jpg" class="h-40 rounded-lg"/>
                 </x-file>
 
@@ -68,7 +68,7 @@ new class extends Component {
                     <hr class="my-3" />
                     <div class="grid gap-3 mb-3">
                         <x-input label="Variant Name" wire:model="form.variants.{{$index}}.variant_name "/>
-                        <x-input label="Price" wire:model="form.variants.{{$index}}.price" prefix="Rp" money locale="id-ID"/>
+                        <x-input label="Price" wire:model="form.variants.{{$index}}.price" prefix="Rp"/>
                         <x-input label="Stock" wire:model="form.variants.{{$index}}.stock"/>
                     </div>
                     <x-button label="Remove" icon="o-trash" wire:click="removeVariant({{$index}})" class="btn-error"/>
